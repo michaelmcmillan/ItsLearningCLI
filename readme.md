@@ -36,5 +36,5 @@ If you want to login to It'sLearning with itslearningcli there has to be a compa
 driver for your school. Unfortunately I don't have the rights to log into schools
 I'm not studying at, therefore I need help writing drivers.
 
-A pull-request is greatly appreciated and I'll make sure to credit everyone who
+A pull-request is greatly appreciated and I'll make sure to credit anyone who
 helps out.
