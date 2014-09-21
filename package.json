@@ -1,0 +1,22 @@
+{
+  "name": "ItsLearningCLI",
+  "version": "0.0.1",
+  "description": "A command line tool for interacting with It'sLearning.",
+  "preferGlobal": true,
+  "bin": {"its": "cli.js"},
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "itslearning",
+    "cli",
+    "platform",
+    "e-learning",
+    "command",
+    "line",
+    "tool"
+  ],
+  "author": "Michael McMillan <email@michaelmcmillan.net> (http://michaelmcmillan.net/)",
+  "license": "MIT"
+}
