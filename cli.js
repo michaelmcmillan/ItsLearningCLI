@@ -11,7 +11,7 @@ cli.setApp('its', '0.0.1');
 
 cli.parse({
     setup        : ['s', 'Setup credentials and driver.'],
-    notifications: ['l', 'List all your courses.'],
+    notifications: ['n', 'List notifications.'],
     inbox        : ['i', 'List messages in your inbox.'],
     dashboard    : ['d', 'Spit out a summary of everything']
 });
