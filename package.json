@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "description": "A command line tool for interacting with It'sLearning.",
   "preferGlobal": true,
-  "bin": {"its": "cli.js"},
+  "bin": {
+    "its": "cli.js"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" :
-    { "type" : "git",
-       "url" : "https://github.com/michaelmcmillan/It-sLearningCLI.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelmcmillan/It-sLearningCLI.git"
   },
   "keywords": [
     "itslearning",
@@ -22,5 +24,11 @@
     "tool"
   ],
   "author": "Michael McMillan <email@michaelmcmillan.net> (http://michaelmcmillan.net/)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "cli-table": "^0.3.0",
+    "prompt": "^0.2.14",
+    "request": "^2.44.0"
+  }
 }
