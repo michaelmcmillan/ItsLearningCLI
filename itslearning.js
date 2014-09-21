@@ -27,6 +27,9 @@ module.exports = function () {
     /* Courses */
     this.courses = [];
 
+    /* Bulletins */
+    this.bulletins = {};
+
     /**
      * setAuthenticationDriver
      * - Loads an authentication driver for the client
@@ -81,6 +84,14 @@ module.exports = function () {
      */
     this.getCourses = function () {
         return this.courses;
+    }
+
+    /**
+     * getBulletins
+     * - Returns the bulletins for a course
+     */
+    this.getBulletins = function (courseId) {
+        return this.bulletins[courseId];
     }
 
     /**
@@ -183,6 +194,58 @@ module.exports = function () {
             });
         });
     }
+
+    /**
+     * fetchBulletins
+     * - Fetches the bulletins for a course
+     */
+    this.fetchBulletins = function (courseId) {
+        var self = this;
+
+        var options = {
+            url: this.url + 'Course/course.aspx?CourseId=' + courseId,
+            jar: this.cookieJar
+        }
+
+        request(options, function (error, response, html) {
+            $ = cheerio.load(html, {
+                normalizeWhitespace: true
+            });
+
+            self.bulletins[courseId] = [];
+            var rawBulletins = $('.itsl-widget-content-ul', '.itsl-cb-news').children('li');
+
+            rawBulletins.each(function (index, rawBulletin) {
+                var bulletin = {
+                    title   : $(rawBulletin).children('h2').text(),
+                    body    : $(rawBulletin).children('div.userinput').text(),
+                    from    : $(rawBulletin).children('.itsl-widget-extrainfo').children('a').text()
+                }
+
+                self.bulletins[courseId].push(bulletin);
+            });
+        });
+    }
+
+    /**
+     * bulletinsTable
+     * - Spits out a formatted table of bulletins for a course
+     */
+     this.bulletinsTable = function (courseId) {
+         var table = new Table({
+             head: ['Title', 'From'],
+             style: {
+                 compact: true,
+                 'padding-left': 1
+             }
+         });
+
+         this.getBulletins(courseId).forEach(function (bulletin) {
+             table.push([bulletin.title, bulletin.from]);
+         });
+
+         return table.toString();
+     }
 
     /**
      * coursesTable

@@ -14,7 +14,8 @@ cli.parse({
     notifications: ['n', 'List notifications.'],
     inbox        : ['i', 'List messages in your inbox.'],
     dashboard    : ['d', 'Spit out a summary of everything'],
-    courses      : ['c', 'List all courses.']
+    courses      : ['c', 'List all courses with their corresponding id.'],
+    bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number']
 });
 
 var setup = function () {
@@ -92,6 +93,10 @@ cli.main(function (args, options) {
              client.fetchUnreadMessages();
              client.fetchNotifications();
              client.fetchCourses();
+
+             if (options.bulletins) {
+                 client.fetchBulletins(options.bulletins);
+             }
          });
 
          /**
@@ -116,18 +121,23 @@ cli.main(function (args, options) {
 
           }
 
-          /**
-           * List courses
-           */
-           if (options.courses) {
+         /**
+          * List courses
+          */
+          if (options.courses) {
+              setTimeout(function () {
+                  console.log(client.courseTable());
+              }, 4500);
+          }
 
-               setTimeout(function () {
-                   console.log(client.courseTable());
-               }, 4500);
+         /**
+          * List bulletings for a course
+          */
+          if (options.bulletins) {
 
-           }
-
-
-
+              setTimeout(function () {
+                  console.log(client.bulletinsTable(options.bulletins));
+              }, 4500);
+          }
     }
 });
