@@ -13,7 +13,8 @@ cli.parse({
     setup        : ['s', 'Setup credentials and driver.'],
     notifications: ['n', 'List notifications.'],
     inbox        : ['i', 'List messages in your inbox.'],
-    dashboard    : ['d', 'Spit out a summary of everything']
+    dashboard    : ['d', 'Spit out a summary of everything'],
+    courses      : ['c', 'List all courses.']
 });
 
 var setup = function () {
@@ -65,6 +66,7 @@ cli.main(function (args, options) {
         /**
          * Load the configuration
          */
+         //cli.spinner('Working..');
          configuration.load();
 
         /**
@@ -89,6 +91,7 @@ cli.main(function (args, options) {
          client.authenticate(function () {
              client.fetchUnreadMessages();
              client.fetchNotifications();
+             client.fetchCourses();
          });
 
          /**
@@ -112,6 +115,19 @@ cli.main(function (args, options) {
               }, 4500);
 
           }
+
+          /**
+           * List courses
+           */
+           if (options.courses) {
+
+               setTimeout(function () {
+                   console.log(client.courseTable());
+               }, 4500);
+
+           }
+
+
 
     }
 });

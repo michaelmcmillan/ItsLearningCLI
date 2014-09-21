@@ -24,6 +24,9 @@ module.exports = function () {
     /* Notifications */
     this.notifications = [];
 
+    /* Courses */
+    this.courses = [];
+
     /**
      * setAuthenticationDriver
      * - Loads an authentication driver for the client
@@ -70,6 +73,14 @@ module.exports = function () {
      */
     this.getNotifications = function () {
         return this.notifications;
+    }
+
+    /**
+     * getCourses
+     * - Returns the courses
+     */
+    this.getCourses = function () {
+        return this.courses;
     }
 
     /**
@@ -140,6 +151,57 @@ module.exports = function () {
                  self.notifications.push(notification);
              });
          });
+     }
+
+    /**
+     * fetchCourses
+     * - Fetches the courses
+     */
+    this.fetchCourses = function () {
+        var self = this;
+
+        var options = {
+            url: this.url + 'Dashboard/Dashboard.aspx',
+            jar: this.cookieJar
+        }
+
+        request(options, function (error, response, html) {
+            $ = cheerio.load(html, {
+                normalizeWhitespace: true
+            });
+
+            var rawCourses = $('.itsl-widget-content-ul', '.itsl-cb-courses').children('li');
+
+            rawCourses.each(function (index, rawCourse) {
+                var course = {
+                    id   : $(rawCourse).children('a').attr('href')
+                              .replace('/main.aspx?CourseID=', ''),
+                    title: $(rawCourse).children('a').text()
+                }
+
+                self.courses.push(course);
+            });
+        });
+    }
+
+    /**
+     * coursesTable
+     * - Spits out a formatted table of each course
+     */
+     this.courseTable = function () {
+         var table = new Table({
+             head: ['Id', 'Course title'],
+             style: {
+                 compact: true,
+                 'padding-left': 1
+             }
+         });
+
+         this.getCourses().forEach(function (course) {
+             table.push([course.id, course.title]);
+         });
+
+         return table.toString();
      }
 
     /**
