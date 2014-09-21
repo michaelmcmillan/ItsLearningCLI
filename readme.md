@@ -10,14 +10,8 @@ application ever made: ItsLearning.com.
 ![Screenshot of inbox](screens/notifications.png)
 
 ## Installation
-NPM-package on it's way. Until then:
 ```bash
-git clone git@github.com:michaelmcmillan/It-sLearningCLI.git
-```
-
-## Setup
-```bash
-its --setup
+npm install itslearningcli
 ```
 ## Usage
 ```
@@ -31,3 +25,16 @@ Options:
   -d, --dashboard        Spit out a summary of everything
   -h, --help             Display help and usage details
 ```
+## Contributing
+It'sLearning supports several ways of authentication. For instance, the
+NTNU (Norwegian University of Science and Technology) uses SAML (Security
+Assertion Markup Language) while others only use the "native" It'sLearning
+login.
+
+This is why itslearningcli ships with a directory called <code>drivers</code>.
+If you want to login to It'sLearning with itslearningcli there has to be a compatible
+driver for your school. Unfortunately I don't have the rights to log into schools
+I'm not studying at, therefore I need help writing drivers.
+
+A pull-request is greatly appreciated and I'll make sure to credit everyone who
+helps out.
