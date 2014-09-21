@@ -1,5 +1,5 @@
 {
-  "name": "ItsLearningCLI",
+  "name": "itslearningcli",
   "version": "0.0.1",
   "description": "A command line tool for interacting with It'sLearning.",
   "preferGlobal": true,
