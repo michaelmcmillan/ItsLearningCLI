@@ -5,7 +5,7 @@ var cli         = require('cli');
 var prompt      = require('prompt');
 var ntnu        = require('./drivers/ntnu.js');
 var itslearning = require('./itslearning.js');
-var Table       = require('cli-table');
+
 
 cli.setApp('its', '0.0.1');
 
@@ -18,7 +18,7 @@ cli.parse({
 
 var setup = function () {
     var configuration = new config();
-    
+
     var setupSchema = {
         properties: {
             username: {
@@ -41,11 +41,6 @@ var setup = function () {
         }
     };
 
-    cli.info (
-        'This will overwrite any previously stored credentials' +
-        'stored in ~/.itsconfig (home-directory).'
-    );
-
     prompt.start();
     prompt.get(setupSchema, function (err, answers) {
         if (!err) {
@@ -63,55 +58,60 @@ cli.main(function (args, options) {
      * Run setup
      */
      var configuration = new config;
-     configuration.load();
-     if (options.setup/* || configuration.missing*/) {
+     if (options.setup || !configuration.exists) {
          setup();
-     }
+     } else {
 
-    /**
-     * Initiate the itslearning-client
-     */
-     var client = new itslearning();
-     client.setCredentials(
-         configuration.getField('username'),
-         configuration.getField('password')
-     );
+        /**
+         * Load the configuration
+         */
+         configuration.load();
 
-    /**
-     * Initiate the authentication driver
-     */
-     client.setAuthenticationDriver(
-         require('./drivers/'+ configuration.getField('driver') +'.js')
-     );
+        /**
+         * Initiate the itslearning-client
+         */
+         var client = new itslearning();
+         client.setCredentials(
+             configuration.getField('username'),
+             configuration.getField('password')
+         );
 
-    /**
-     * Authenticate with the client & fetch data
-     */
-     client.authenticate(function () {
-         client.fetchUnreadMessages();
-         client.fetchNotifications();
-     });
+        /**
+         * Initiate the authentication driver
+         */
+         client.setAuthenticationDriver(
+             require('./drivers/'+ configuration.getField('driver') +'.js')
+         );
 
-     /**
-      * List messages in inbox
-      */
-      if (options.inbox) {
+        /**
+         * Authenticate with the client & fetch data
+         */
+         client.authenticate(function () {
+             client.fetchUnreadMessages();
+             client.fetchNotifications();
+         });
 
-          var table = new Table({
-              head: ['Date', 'From', 'Subject'],
-              style: {
-                  compact: true,
-                  'padding-left': 1
-              }
-          });
+         /**
+          * List messages in inbox
+          */
+          if (options.inbox) {
 
-          setTimeout(function () {
-              client.getUnreadMessages().forEach(function (message) {
-                  table.push([message.date, message.from, message.subject]);
-              });
+              setTimeout(function () {
+                  console.log(client.inboxTable());
+              }, 4500);
 
-              console.log(table.toString());
-          }, 3500);
+          }
 
-      }
+         /**
+          * List notifications
+          */
+          if (options.notifications) {
+
+              setTimeout(function () {
+                  console.log(client.notificationTable());
+              }, 4500);
+
+          }
+
+    }
 });

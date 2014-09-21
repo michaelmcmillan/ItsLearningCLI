@@ -1,5 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
+var Table   = require('cli-table');
 
 module.exports = function () {
 
@@ -140,4 +141,44 @@ module.exports = function () {
              });
          });
      }
+
+    /**
+     * inboxTable
+     * - Spits out a formatted table of the inbox
+     */
+     this.inboxTable = function () {
+         var table = new Table({
+             head: ['Date', 'From', 'Subject'],
+             style: {
+                 compact: true,
+                 'padding-left': 1
+             }
+         });
+
+         this.getUnreadMessages().forEach(function (message) {
+             table.push([message.date, message.from, message.subject]);
+         });
+
+         return table.toString();
+     }
+
+     /**
+      * notificationTable
+      * - Spits out a formatted table of the notifications
+      */
+      this.notificationTable = function () {
+          var table = new Table({
+              head: ['Date', 'From', 'Subject'],
+              style: {
+                  compact: true,
+                  'padding-left': 1
+              }
+          });
+
+          this.getNotifications().forEach(function (notification) {
+              table.push([notification.date, notification.from, notification.title]);
+          });
+
+          return table.toString();
+      }
 }
