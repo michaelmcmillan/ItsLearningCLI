@@ -1,5 +1,5 @@
 # ItsLearningCLI
-This is a command line tool that aims to replace the most noodle-nending counter-intuitive
+This is a command line tool that aims to replace the most noodle-bending counter-intuitive
 application ever made: ItsLearning.com.
 
 ## Screenshots
