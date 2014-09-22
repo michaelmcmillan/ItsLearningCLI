@@ -22,6 +22,7 @@ Options:
   -i, --inbox            List messages in your inbox.
   -c, --courses          List all courses with their corresponding id.
   -b, --bulletins NUMBER List bulletings (news) for a single course id.
+  -t, --tree NUMBER      List directories and files for a single course.
   -h, --help             Display help and usage details
 ```
 ## Contributing
