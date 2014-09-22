@@ -1,6 +1,4 @@
 # ItsLearningCLI
-[![NPM](https://nodei.co/npm/itslearningcli.png)](https://nodei.co/npm/itslearningcli)
-
 This is a command line tool that aims to replace the most noodle-bending counter-intuitive
 application ever made: [ItsLearning.com](http://itslearning.com).
 
@@ -11,9 +9,8 @@ application ever made: [ItsLearning.com](http://itslearning.com).
 Check the [screens](screens/) directory for more.
 
 ## Installation
-```bash
-npm install itslearningcli
-```
+[![NPM](https://nodei.co/npm/itslearningcli.png)](https://nodei.co/npm/itslearningcli)
+
 ## Usage
 ```
 Usage:
