@@ -289,7 +289,7 @@ module.exports = function () {
 
             rawBulletins.each(function (index, rawBulletin) {
                 var bulletin = {
-                    title   : $(rawBulletin).children('h2').text(),
+                    title   : $(rawBulletin).children('h2').text().trim(),
                     body    : $(rawBulletin).children('div.userinput').text(),
                     from    : $(rawBulletin).children('.itsl-widget-extrainfo').children('a').text()
                 }
