@@ -140,8 +140,6 @@ module.exports = function () {
                 normalizeWhitespace: true
             });
 
-            console.log(html);
-
             var rawMessages = $('tr', 'table');
 
             rawMessages.each(function (index, rawMessage) {
@@ -166,6 +164,34 @@ module.exports = function () {
 
             });
 
+        });
+    }
+
+    /**
+     * fetchMessages
+     * - Fetches all messages
+     */
+    this.fetchMessage = function (messageId, cb) {
+        var self = this;
+
+        var options = {
+            url: this.url + 'Messages/view_message.aspx' +
+                '?MessageFolderId=1&MessageId=' + messageId,
+            jar: this.cookieJar
+        }
+
+        request(options, function (error, response, html) {
+            $ = cheerio.load(html, {
+                normalizeWhitespace: true
+            });
+
+            var message = {
+                from    : $('td', '.readMessageHeader').first().text(),
+                subject : $('h1.ccl-pageheader').text(),
+                body    : $('.readMessageBody').text()
+            }
+
+            cb(message);
         });
     }
 

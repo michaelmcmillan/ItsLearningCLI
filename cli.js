@@ -106,8 +106,8 @@ cli.main(function (args, options) {
               * Read message in inbox
               */
               if (options.message) {
-                  client.fetchMessage(options.message, function () {
-
+                  client.fetchMessage(options.message, function (message) {
+                      console.log(message);
                   });
               }
 
