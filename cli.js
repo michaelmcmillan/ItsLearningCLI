@@ -19,7 +19,7 @@ cli.parse({
 });
 
 var couldNotAuthenticate = function () {
-    console.log ("Hmm.. Something went wrong.");
+    cli.error ('Authentication failed. Check your credentials.');
 }
 
 var setup = function () {
@@ -120,8 +120,6 @@ cli.main(function (args, options) {
                       console.log(client.courseTable());
                   });
               }
-         }, function (error) {
-             cli.error("Could not authenticate.");
-         });
+         }, couldNotAuthenticate);
     }
 });
