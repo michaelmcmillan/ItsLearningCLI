@@ -16,11 +16,12 @@ Check the [screens](screens/) directory for more.
 Usage:
   its [OPTIONS] [ARGS]
 
-Options:
+Options: 
   -s, --setup            Setup credentials and driver.
   -n, --notifications    List notifications.
   -i, --inbox            List messages in your inbox.
-  -d, --dashboard        Spit out a summary of everything
+  -c, --courses          List all courses with their corresponding id.
+  -b, --bulletins NUMBER List bulletings (news) for a single course id.
   -h, --help             Display help and usage details
 ```
 ## Contributing
