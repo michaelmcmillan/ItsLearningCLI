@@ -1,6 +1,8 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var Table   = require('cli-table');
+var wrap    = require('wordwrap')(9, 80);
+var colors  = require('colors');
 
 module.exports = function () {
 
@@ -300,6 +302,17 @@ module.exports = function () {
                     cb();
             });
         });
+    }
+
+    /**
+     * printMessage
+     * - Spits out formatted message
+     */
+
+    this.printMessage = function (message) {
+        console.log("FROM:    ".bold.red + message.from.bold);
+        console.log("SUBJECT: ".bold.red + message.subject.bold);
+        console.log(wrap(message.body));
     }
 
     /**
