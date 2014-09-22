@@ -123,15 +123,15 @@ module.exports = function () {
     }
 
     /**
-     * fetchUnreadMessages
-     * - Fetches unread messages
+     * fetchMessages
+     * - Fetches all messages
      */
-    this.fetchUnreadMessages = function (cb) {
+    this.fetchMessages = function (cb) {
         var self = this;
 
         var options = {
-            url: this.url + 'Services/NotificationService.asmx' +
-                '/GetPersonalMessages',
+            url: this.url + 'Messages/InternalMessages.aspx' +
+                '?MessageFolderId=1',
             jar: this.cookieJar
         }
 
@@ -140,24 +140,32 @@ module.exports = function () {
                 normalizeWhitespace: true
             });
 
-            var rawMessages = $('ul').children('li.itsl-message-item-unread');
+            console.log(html);
+
+            var rawMessages = $('tr', 'table');
 
             rawMessages.each(function (index, rawMessage) {
-                var head    = $(rawMessage).children('.itsl-message-item-head');
-                var body    = $(rawMessage).children('.itsl-message-item-body');
+
+                /* Skip first child: Header-controls*/
+                if (index == 0)
+                    return;
 
                 var message = {
-                    date    : $(head).children('.itsl-widget-extrainfo').text(),
-                    from    : $(head).children('a').text(),
-                    subject : $(body).children('a').text(),
-                    message : $(body).children('span').text()
+                    id     : $('input[name="_table:Select"]', rawMessage).attr('value'),
+                    date   : $('.messageDate', rawMessage).text(),
+                    read   : ($('td[style*="font-weight:bold;"]', rawMessage).length ? false : true),
+                    from   : $('.messageFrom', rawMessage).text(),
+                    subject: $('.messageSubject', rawMessage).text(),
+                    body   : $('.messageBody', rawMessage).text()
                 }
 
                 self.messages.push(message);
 
                 if (index == rawMessages.length - 1)
                     cb();
+
             });
+
         });
     }
 
@@ -314,7 +322,7 @@ module.exports = function () {
      */
      this.inboxTable = function () {
          var table = new Table({
-             head: ['Date', 'From', 'Subject'],
+             head: ['Id', 'Date', 'From', 'Subject'],
              style: {
                  compact: true,
                  'padding-left': 1
@@ -322,7 +330,7 @@ module.exports = function () {
          });
 
          this.getUnreadMessages().forEach(function (message) {
-             table.push([message.date, message.from, message.subject]);
+             table.push([message.id, message.date, message.from, message.subject]);
          });
 
          return table.toString();

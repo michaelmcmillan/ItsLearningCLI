@@ -11,10 +11,10 @@ cli.setApp('its', '0.0.1');
 cli.parse({
     setup        : ['s', 'Setup credentials and driver.'],
     notifications: ['n', 'List notifications.'],
-    inbox        : ['i', 'List messages in your inbox.'],
     courses      : ['c', 'List all courses with their corresponding id.'],
-    bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number'],
-    tree         : ['t', 'List directories and files for a single course.', 'number']
+    inbox        : ['i', 'List messages in your inbox.'],
+    message      : ['m', 'Read a specific message in the inbox.', 'number'],
+    bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number']
 });
 
 var couldNotAuthenticate = function () {
@@ -97,8 +97,17 @@ cli.main(function (args, options) {
               * List messages in inbox
               */
               if (options.inbox) {
-                  client.fetchUnreadMessages(function () {
+                  client.fetchMessages(function () {
                       console.log(client.inboxTable());
+                  });
+              }
+
+             /**
+              * Read message in inbox
+              */
+              if (options.message) {
+                  client.fetchMessage(options.message, function () {
+
                   });
               }
 
