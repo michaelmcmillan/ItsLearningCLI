@@ -1,7 +1,7 @@
 var request   = require('request');
 var cheerio   = require('cheerio');
 
-module.exports = function (username, password, cookieJar, callback) {
+module.exports = function (username, password, cookieJar, success, fail) {
 
     /**
      * Step 1: Obtain authState-token
@@ -13,6 +13,9 @@ module.exports = function (username, password, cookieJar, callback) {
     };
 
     request(options, function (error, response, html) {
+
+        if (error)
+            fail(error);
 
         $ = cheerio.load(html);
 
@@ -36,6 +39,9 @@ module.exports = function (username, password, cookieJar, callback) {
 
         request(authOptions, function (error, response, html) {
 
+            if (error)
+                fail(error);
+
             $ = cheerio.load(html);
 
             /**
@@ -54,7 +60,9 @@ module.exports = function (username, password, cookieJar, callback) {
 
             request(samlOptions, function (error, response, html) {
                 if (!error)
-                    callback();
+                    success();
+                else
+                    fail(error);
             });
         });
     });

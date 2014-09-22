@@ -18,6 +18,10 @@ cli.parse({
     tree         : ['t', 'List directories and files for a single course.', 'number']
 });
 
+var couldNotAuthenticate = function () {
+    console.log ("Hmm.. Something went wrong.");
+}
+
 var setup = function () {
     var configuration = new config();
 
@@ -103,11 +107,9 @@ cli.main(function (args, options) {
               * List notifications
               */
               if (options.notifications) {
-
                   client.fetchNotifications(function () {
                       console.log(client.notificationTable());
                   });
-
               }
 
              /**
@@ -118,33 +120,8 @@ cli.main(function (args, options) {
                       console.log(client.courseTable());
                   });
               }
-
-             /**
-              * List bulletings for a course
-              */
-              if (options.bulletins) {
-
-                    console.log("Not yet implemented.");
-              }
-
-             /**
-              * List folders and files (tree) for a course
-              */
-              if (options.tree) {
-                  setTimeout(function () {
-                      client.fetchTree(options.tree);
-                  }, 4500);
-              }
-
-
-
-
-
-             if (options.bulletins) {
-                client.fetchBulletins(options.bulletins);
-             }
+         }, function (error) {
+             cli.error("Could not authenticate.");
          });
-
-
     }
 });

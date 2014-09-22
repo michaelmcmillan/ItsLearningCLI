@@ -51,13 +51,18 @@ module.exports = function () {
      * authenticate
      * - Attempts to authenticate with the provided driver
      */
-    this.authenticate = function (callback) {
+    this.authenticate = function (success, fail) {
         this.authenticationDriver(
             this.username,
             this.password,
             this.cookieJar,
+            /* Success */
             function () {
-                callback();
+                success();
+            },
+            /* Fail */
+            function (error) {
+                fail();
             }
         );
     }
