@@ -107,7 +107,6 @@ module.exports = function () {
             jar: this.cookieJar
         }
 
-
         /* Find the root-folder-id (hacky) */
         request(options, function (error, response, html) {
             var rootDirId = html.match(/FolderID\=([0-9]+)\'/)[1];
@@ -122,7 +121,7 @@ module.exports = function () {
      * fetchUnreadMessages
      * - Fetches unread messages
      */
-    this.fetchUnreadMessages = function () {
+    this.fetchUnreadMessages = function (cb) {
         var self = this;
 
         var options = {
@@ -137,6 +136,7 @@ module.exports = function () {
             });
 
             var rawMessages = $('ul').children('li.itsl-message-item-unread');
+
             rawMessages.each(function (index, rawMessage) {
                 var head    = $(rawMessage).children('.itsl-message-item-head');
                 var body    = $(rawMessage).children('.itsl-message-item-body');
@@ -149,6 +149,9 @@ module.exports = function () {
                 }
 
                 self.messages.push(message);
+
+                if (index == rawMessages.length - 1)
+                    cb();
             });
         });
     }
@@ -157,7 +160,7 @@ module.exports = function () {
      * fetchNotifications
      * - Fetches notifications
      */
-     this.fetchNotifications = function () {
+     this.fetchNotifications = function (cb) {
          var self = this;
 
          var options = {
@@ -184,6 +187,9 @@ module.exports = function () {
                  }
 
                  self.notifications.push(notification);
+
+                 if (index == rawNotifications.length - 1)
+                     cb();
              });
          });
      }
@@ -192,7 +198,7 @@ module.exports = function () {
      * fetchCourses
      * - Fetches the courses
      */
-    this.fetchCourses = function () {
+    this.fetchCourses = function (cb) {
         var self = this;
 
         var options = {
@@ -215,6 +221,9 @@ module.exports = function () {
                 }
 
                 self.courses.push(course);
+
+                if (index == rawCourses.length - 1)
+                    cb();
             });
         });
     }
@@ -223,7 +232,7 @@ module.exports = function () {
      * fetchBulletins
      * - Fetches the bulletins for a course
      */
-    this.fetchBulletins = function (courseId) {
+    this.fetchBulletins = function (courseId, cb) {
         var self = this;
 
         var options = {
@@ -247,6 +256,9 @@ module.exports = function () {
                 }
 
                 self.bulletins[courseId].push(bulletin);
+
+                if (index == rawBulletins.length - 1)
+                    cb();
             });
         });
     }

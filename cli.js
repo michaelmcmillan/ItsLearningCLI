@@ -13,7 +13,6 @@ cli.parse({
     setup        : ['s', 'Setup credentials and driver.'],
     notifications: ['n', 'List notifications.'],
     inbox        : ['i', 'List messages in your inbox.'],
-    dashboard    : ['d', 'Spit out a summary of everything'],
     courses      : ['c', 'List all courses with their corresponding id.'],
     bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number'],
     tree         : ['t', 'List directories and files for a single course.', 'number']
@@ -68,7 +67,6 @@ cli.main(function (args, options) {
         /**
          * Load the configuration
          */
-         //cli.spinner('Working..');
          configuration.load();
 
         /**
@@ -91,63 +89,62 @@ cli.main(function (args, options) {
          * Authenticate with the client & fetch data
          */
          client.authenticate(function () {
-             client.fetchUnreadMessages();
-             client.fetchNotifications();
-             client.fetchCourses();
+
+             /**
+              * List messages in inbox
+              */
+              if (options.inbox) {
+                  client.fetchUnreadMessages(function () {
+                      console.log(client.inboxTable());
+                  });
+              }
+
+             /**
+              * List notifications
+              */
+              if (options.notifications) {
+
+                  client.fetchNotifications(function () {
+                      console.log(client.notificationTable());
+                  });
+
+              }
+
+             /**
+              * List courses
+              */
+              if (options.courses) {
+                  client.fetchCourses(function () {
+                      console.log(client.courseTable());
+                  });
+              }
+
+             /**
+              * List bulletings for a course
+              */
+              if (options.bulletins) {
+
+                    console.log("Not yet implemented.");
+              }
+
+             /**
+              * List folders and files (tree) for a course
+              */
+              if (options.tree) {
+                  setTimeout(function () {
+                      client.fetchTree(options.tree);
+                  }, 4500);
+              }
+
+
+
+
 
              if (options.bulletins) {
-                 client.fetchBulletins(options.bulletins);
+                client.fetchBulletins(options.bulletins);
              }
          });
 
-         /**
-          * List messages in inbox
-          */
-          if (options.inbox) {
 
-              setTimeout(function () {
-                  console.log(client.inboxTable());
-              }, 4500);
-
-          }
-
-         /**
-          * List notifications
-          */
-          if (options.notifications) {
-
-              setTimeout(function () {
-                  console.log(client.notificationTable());
-              }, 4500);
-
-          }
-
-         /**
-          * List courses
-          */
-          if (options.courses) {
-              setTimeout(function () {
-                  console.log(client.courseTable());
-              }, 4500);
-          }
-
-         /**
-          * List bulletings for a course
-          */
-          if (options.bulletins) {
-
-              setTimeout(function () {
-                  console.log(client.bulletinsTable(options.bulletins));
-              }, 4500);
-          }
-
-         /**
-          * List folders and files (tree) for a course
-          */
-          if (options.tree) {
-              setTimeout(function () {
-                  client.fetchTree(options.tree);
-              }, 4500);
-          }
     }
 });
