@@ -188,7 +188,7 @@ module.exports = function () {
             var message = {
                 from    : $('td', '.readMessageHeader').first().text(),
                 subject : $('h1.ccl-pageheader').text(),
-                body    : $('.readMessageBody').text()
+                body    : $('.readMessageBody').text().trim()
             }
 
             cb(message);

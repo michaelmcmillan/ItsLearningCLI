@@ -4,6 +4,8 @@ var config      = require('./config.js');
 var cli         = require('cli');
 var prompt      = require('prompt');
 var itslearning = require('./itslearning.js');
+var wrap        = require('wordwrap')(9, 80);
+var colors = require('colors');
 
 
 cli.setApp('its', '0.0.1');
@@ -107,7 +109,9 @@ cli.main(function (args, options) {
               */
               if (options.message) {
                   client.fetchMessage(options.message, function (message) {
-                      console.log(message);
+                      console.log("FROM:    ".bold.red + message.from.bold);
+                      console.log("SUBJECT: ".bold.red + message.subject.bold);
+                      console.log(wrap(message.body));
                   });
               }
 
