@@ -95,6 +95,30 @@ module.exports = function () {
     }
 
     /**
+     * fetchTree
+     * - Recursively builds a tree of dirs and files for a course
+     */
+    this.fetchTree = function (courseId) {
+        var self = this;
+
+        var options = {
+            url: this.url + 'ContentArea/ContentArea.aspx' +
+                '?LocationID='+ courseId +'&LocationType=1',
+            jar: this.cookieJar
+        }
+
+
+        /* Find the root-folder-id (hacky) */
+        request(options, function (error, response, html) {
+            var rootDirId = html.match(/FolderID\=([0-9]+)\'/)[1];
+
+            // This has to be recursively
+            // https://www.itslearning.com/Folder/processfolder.aspx?FolderID=
+
+        });
+    }
+
+    /**
      * fetchUnreadMessages
      * - Fetches unread messages
      */

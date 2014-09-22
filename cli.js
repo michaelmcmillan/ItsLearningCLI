@@ -15,7 +15,8 @@ cli.parse({
     inbox        : ['i', 'List messages in your inbox.'],
     dashboard    : ['d', 'Spit out a summary of everything'],
     courses      : ['c', 'List all courses with their corresponding id.'],
-    bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number']
+    bulletins    : ['b', 'List bulletings (news) for a single course id.', 'number'],
+    tree         : ['t', 'List directories and files for a single course.', 'number']
 });
 
 var setup = function () {
@@ -137,6 +138,15 @@ cli.main(function (args, options) {
 
               setTimeout(function () {
                   console.log(client.bulletinsTable(options.bulletins));
+              }, 4500);
+          }
+
+         /**
+          * List folders and files (tree) for a course
+          */
+          if (options.tree) {
+              setTimeout(function () {
+                  client.fetchTree(options.tree);
               }, 4500);
           }
     }
