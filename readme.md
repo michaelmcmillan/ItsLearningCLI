@@ -1,13 +1,14 @@
 # ItsLearningCLI
+[![NPM](https://nodei.co/npm/itslearningcli.png)](https://nodei.co/npm/itslearningcli)
+
 This is a command line tool that aims to replace the most noodle-bending counter-intuitive
-application ever made: ItsLearning.com.
+application ever made: [ItsLearning.com](http://itslearning.com).
 
 ## Screenshots
 ##### Messages in the inbox
 ![Screenshot of inbox](screens/inbox.png)
 
-##### Notifications
-![Screenshot of inbox](screens/notifications.png)
+Check the [screens](screens/) directory for more.
 
 ## Installation
 ```bash
