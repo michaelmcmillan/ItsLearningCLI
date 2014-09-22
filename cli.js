@@ -3,7 +3,6 @@ var fs          = require('fs');
 var config      = require('./config.js');
 var cli         = require('cli');
 var prompt      = require('prompt');
-var ntnu        = require('./drivers/ntnu.js');
 var itslearning = require('./itslearning.js');
 
 
