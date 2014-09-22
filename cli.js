@@ -120,6 +120,16 @@ cli.main(function (args, options) {
                       console.log(client.courseTable());
                   });
               }
+
+              /**
+              * List bulletins
+              */
+              if (options.bulletins) {
+                  client.fetchBulletins(options.bulletins, function () {
+                      console.log(client.bulletinsTable(options.bulletins));
+                  });
+              }
+
          }, function (error) {
              cli.error("Could not authenticate.");
          });
