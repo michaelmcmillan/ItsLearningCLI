@@ -16,7 +16,7 @@ Check the [screens](screens/) directory for more.
 Usage:
   its [OPTIONS] [ARGS]
 
-Options: 
+Options:
   -s, --setup            Setup credentials and driver.
   -n, --notifications    List notifications.
   -i, --inbox            List messages in your inbox.
@@ -25,6 +25,12 @@ Options:
   -t, --tree NUMBER      List directories and files for a single course.
   -h, --help             Display help and usage details
 ```
+## Contributors
+- @michaelmcmillan <email@michaelmcmillan.net> came up with the idea the initial code.
+- @marthall fixed bugs, missing documentation and corrected package.json dependencies.
+- @roessland helped with reporting a silent error
+- @RasmusWriedtLarsen feature-suggestions
+
 ## Contributing
 It'sLearning supports several ways of authentication. For instance, the
 NTNU (Norwegian University of Science and Technology) uses SAML (Security
