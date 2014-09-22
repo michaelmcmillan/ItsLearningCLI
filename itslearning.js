@@ -151,7 +151,7 @@ module.exports = function () {
                 var message = {
                     id     : $('input[name="_table:Select"]', rawMessage).attr('value'),
                     date   : $('.messageDate', rawMessage).text(),
-                    read   : ($('td[style*="font-weight:bold;"]', rawMessage).length ? false : true),
+                    read   : ($('td[style*="font-weight:bold;"]', rawMessage).length ? ' ' : '✓'),
                     from   : $('.messageFrom', rawMessage).text(),
                     subject: $('.messageSubject', rawMessage).text(),
                     body   : $('.messageBody', rawMessage).text()
@@ -348,7 +348,7 @@ module.exports = function () {
      */
      this.inboxTable = function () {
          var table = new Table({
-             head: ['Id', 'Date', 'From', 'Subject'],
+             head: ['Id', 'Read', 'Date', 'From', 'Subject'],
              style: {
                  compact: true,
                  'padding-left': 1
@@ -356,7 +356,7 @@ module.exports = function () {
          });
 
          this.getUnreadMessages().forEach(function (message) {
-             table.push([message.id, message.date, message.from, message.subject]);
+             table.push([message.id, message.read, message.date, message.from, message.subject]);
          });
 
          return table.toString();
