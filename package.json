@@ -1,6 +1,6 @@
 {
   "name": "itslearningcli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A command line tool for interacting with It'sLearning.",
   "preferGlobal": true,
   "bin": {
