@@ -29,7 +29,7 @@ module.exports = function () {
     this.set = function (config) {
         this.config = config;
     }
-    
+
     this.load = function () {
         try {
             var loadedConfig = JSON.parse(fs.readFileSync(

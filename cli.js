@@ -5,7 +5,6 @@ var cli         = require('cli');
 var prompt      = require('prompt');
 var itslearning = require('./itslearning.js');
 
-
 cli.setApp('its', '0.0.1');
 
 cli.parse({
@@ -60,10 +59,10 @@ var setup = function () {
 cli.main(function (args, options) {
 
     /**
-     * Run setup
+     * Run setup if -s or .itsconf is missing
      */
      var configuration = new config;
-     if (options.setup || !configuration.exists) {
+     if (options.setup || !configuration.exists()) {
          setup();
      } else {
 
