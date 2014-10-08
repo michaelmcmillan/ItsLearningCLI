@@ -7,7 +7,7 @@ var colors  = require('colors');
 module.exports = function () {
 
     /* Settings */
-    this.url = 'https://www.itslearning.com/';
+    this.schoolUrl;
 
     /* Driver */
     this.authenticationDriver;
@@ -38,6 +38,7 @@ module.exports = function () {
      */
     this.setAuthenticationDriver = function (driver) {
         this.authenticationDriver = driver;
+        this.schoolUrl = driver.schoolUrl;
     }
 
     /**
@@ -109,7 +110,7 @@ module.exports = function () {
         var self = this;
 
         var options = {
-            url: this.url + 'ContentArea/ContentArea.aspx' +
+            url: this.schoolUrl + 'ContentArea/ContentArea.aspx' +
                 '?LocationID='+ courseId +'&LocationType=1',
             jar: this.cookieJar
         }
@@ -132,7 +133,7 @@ module.exports = function () {
         var self = this;
 
         var options = {
-            url: this.url + 'Messages/InternalMessages.aspx' +
+            url: this.schoolUrl + 'Messages/InternalMessages.aspx' +
                 '?MessageFolderId=1',
             jar: this.cookieJar
         }
@@ -141,7 +142,6 @@ module.exports = function () {
             $ = cheerio.load(html, {
                 normalizeWhitespace: true
             });
-
             var rawMessages = $('tr', 'table');
 
             rawMessages.each(function (index, rawMessage) {
@@ -177,7 +177,7 @@ module.exports = function () {
         var self = this;
 
         var options = {
-            url: this.url + 'Messages/view_message.aspx' +
+            url: this.schoolUrl + 'Messages/view_message.aspx' +
                 '?MessageFolderId=1&MessageId=' + messageId,
             jar: this.cookieJar
         }
@@ -205,7 +205,7 @@ module.exports = function () {
          var self = this;
 
          var options = {
-             url: this.url + '/Services/NotificationService.asmx'+
+             url: this.schoolUrl + '/Services/NotificationService.asmx'+
                 '/GetPersonalNotifications',
              jar: this.cookieJar
          }
@@ -243,7 +243,7 @@ module.exports = function () {
         var self = this;
 
         var options = {
-            url: this.url + 'Dashboard/Dashboard.aspx',
+            url: this.schoolUrl + 'Dashboard/Dashboard.aspx',
             jar: this.cookieJar
         }
 
@@ -277,7 +277,7 @@ module.exports = function () {
         var self = this;
 
         var options = {
-            url: this.url + 'Course/course.aspx?CourseId=' + courseId,
+            url: this.schoolUrl + 'Course/course.aspx?CourseId=' + courseId,
             jar: this.cookieJar
         }
 
