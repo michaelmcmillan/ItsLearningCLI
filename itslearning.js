@@ -70,6 +70,17 @@ module.exports = function () {
         );
     }
 
+    /*
+     * createOptions
+     * - Returns an options dict with an auth cookie
+     */
+    this.createOptions = function(url) {
+        return {
+            jar: this.cookieJar,
+            url: this.schoolUrl + url,
+        };
+    };
+
     /**
      * getUnreadMessages
      * - Returns the messages
@@ -109,11 +120,8 @@ module.exports = function () {
     this.fetchTree = function (courseId) {
         var self = this;
 
-        var options = {
-            url: this.schoolUrl + 'ContentArea/ContentArea.aspx' +
-                '?LocationID='+ courseId +'&LocationType=1',
-            jar: this.cookieJar
-        }
+        var options = this.createOptions('ContentArea/ContentArea.aspx' +
+            '?LocationID='+ courseId +'&LocationType=1');
 
         /* Find the root-folder-id (hacky) */
         request(options, function (error, response, html) {
@@ -132,11 +140,8 @@ module.exports = function () {
     this.fetchMessages = function (cb) {
         var self = this;
 
-        var options = {
-            url: this.schoolUrl + 'Messages/InternalMessages.aspx' +
-                '?MessageFolderId=1',
-            jar: this.cookieJar
-        }
+        var options = this.createOptions('Messages/InternalMessages.aspx' +
+            '?MessageFolderId=1');
 
         request(options, function (error, response, html) {
             $ = cheerio.load(html, {
@@ -176,11 +181,8 @@ module.exports = function () {
     this.fetchMessage = function (messageId, cb) {
         var self = this;
 
-        var options = {
-            url: this.schoolUrl + 'Messages/view_message.aspx' +
-                '?MessageFolderId=1&MessageId=' + messageId,
-            jar: this.cookieJar
-        }
+        var options = this.createOptions('Messages/view_message.aspx' +
+                '?MessageFolderId=1&MessageId=' + messageId);
 
         request(options, function (error, response, html) {
             $ = cheerio.load(html, {
@@ -204,11 +206,8 @@ module.exports = function () {
      this.fetchNotifications = function (cb) {
          var self = this;
 
-         var options = {
-             url: this.schoolUrl + '/Services/NotificationService.asmx'+
-                '/GetPersonalNotifications',
-             jar: this.cookieJar
-         }
+         var options = this.createOptions('/Services/NotificationService.asmx'+
+                '/GetPersonalNotifications');
 
          request(options, function (error, response, html) {
              $ = cheerio.load(html, {
@@ -242,10 +241,7 @@ module.exports = function () {
     this.fetchCourses = function (cb) {
         var self = this;
 
-        var options = {
-            url: this.schoolUrl + 'Dashboard/Dashboard.aspx',
-            jar: this.cookieJar
-        }
+        var options = this.createOptions('Dashboard/Dashboard.aspx');
 
         request(options, function (error, response, html) {
             $ = cheerio.load(html, {
@@ -276,10 +272,7 @@ module.exports = function () {
     this.fetchBulletins = function (courseId, cb) {
         var self = this;
 
-        var options = {
-            url: this.schoolUrl + 'Course/course.aspx?CourseId=' + courseId,
-            jar: this.cookieJar
-        }
+        var options = this.createOptions('Course/course.aspx?CourseId=' + courseId);
 
         request(options, function (error, response, html) {
             $ = cheerio.load(html, {
