@@ -27,10 +27,11 @@ Options:
   -h, --help             Display help and usage details
 ```
 ## Contributors
-- @michaelmcmillan <email@michaelmcmillan.net> came up with the idea the initial code.
-- @marthall fixed bugs, missing documentation and corrected package.json dependencies.
-- @roessland helped with reporting a silent error
+- @michaelmcmillan came up with the idea the initial code, maintains the project.
+- @marthall fixed bugs, helped with documentation, fixed dependencies and implemented single message view.
+- @katnegermis wrote an authentication driver for University of Copenhagen & improved custom domains in driver.
 - @RasmusWriedtLarsen feature-suggestions
+- @roessland helped with reporting a silent error
 
 ## Contributing
 It'sLearning supports several ways of authentication. For instance, the
