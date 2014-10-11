@@ -6,7 +6,7 @@ module.exports = function (username, password, cookieJar, success, fail) {
     /*
      * Set URL on which the authentication cookies retrieved can be used.
      */
-    this.schoolUrl = "https://itslearning.com";
+    this.schoolUrl = "https://www.itslearning.com/";
 
     /**
      * Step 1: Obtain authState-token
