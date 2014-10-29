@@ -4,30 +4,31 @@ var cheerio   = require('cheerio');
 module.exports = function (username, password, cookieJar, success, fail) {
 
     /*
-     * Set URL on which the authentication cookies retrieved can be used.
-     */
-    this.schoolUrl = "https://www.itslearning.com/";
-    
-    /*
      * Set the ID for the school we're loading
      */
-    this.customerId = 136; /* Sør-Trøndelag University College*/
-    
+    var customerId = 136; /* Sør-Trøndelag University College*/
+
     /*
      * Set domain for this school
      */
     var domain = "hist.no";
+
     /*
      * Set subdomain for itslearning.com for this scool
      */
     var subDomain = "hist";
     
 
+    /*
+     * Set URL on which the authentication cookies retrieved can be used.
+     */
+    this.schoolUrl = "https://" + subDomain + ".itslearning.com/";
+
     /**
      * Step 1: Obtain authState-token
      */
     var options = {
-        url: 'https://www.itslearning.com/elogin/default.aspx?CustomerId=' + this.customerId,
+        url: 'https://www.itslearning.com/elogin/default.aspx?CustomerId=' + customerId,
         jar: cookieJar,
         followAllRedirects: true
     };
