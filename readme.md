@@ -30,6 +30,7 @@ Options:
 - @michaelmcmillan came up with the idea the initial code, maintains the project.
 - @marthall fixed bugs, helped with documentation, fixed dependencies and implemented single message view.
 - @katnegermis wrote an authentication driver for University of Copenhagen & improved custom domains in driver.
+- @elsand wrote an authentication driver for Høgskolen i Sør-Trøndelag and proposed a generic driver.
 - @RasmusWriedtLarsen feature-suggestions
 - @roessland helped with reporting a silent error
 
