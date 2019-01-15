@@ -1,4 +1,4 @@
-# ItsLearningCLI
+# ItsLearningCLI (this project is no longer maintained)
 This is a command line tool that aims to replace the most noodle-bending counter-intuitive
 application ever made: [ItsLearning.com](http://itslearning.com).
 
